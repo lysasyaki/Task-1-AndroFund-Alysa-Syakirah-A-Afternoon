@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/viewNote"
+        android:name="com.alysa.pemesanan.ui.viewNote.viewNoteFragment"
+        android:label="@string/title_view"
+        tools:layout="@layout/fragment_viewnote" />
+
+    <fragment
+        android:id="@+id/addNote"
+        android:name="com.alysa.pemesanan.ui.addNote.addNoteFragment"
+        android:label="@string/title_add"
+        tools:layout="@layout/fragment_addnote" >
+        <action
+            android:id="@+id/action_addNote_to_viewNote"
+            app:destination="@id/viewNote" />
+    </fragment>
+
+</navigation>

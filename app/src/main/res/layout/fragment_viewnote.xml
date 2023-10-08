@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginRight="10dp"
+    android:layout_marginLeft="10dp"
+    tools:context=".ui.viewNote.viewNoteFragment">
+
+    <TextView
+        android:id="@+id/textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:text="List Order"
+        android:textSize="30dp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="Number Table"
+        android:textSize="20dp"
+        android:layout_below="@+id/textview"
+        android:id="@+id/table"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Input table"
+        android:layout_below="@id/table"
+        android:id="@+id/inTable"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="List Order"
+        android:textSize="20dp"
+        android:id="@+id/menu"
+        android:layout_below="@id/inTable"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:layout_below="@id/menu"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/list"
+        android:id="@+id/code"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Price"
+        android:textSize="20dp"
+        android:id="@+id/price"
+        android:layout_below="@+id/code"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Input price"
+        android:id="@+id/inprice"
+        android:layout_below="@+id/price"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Date"
+        android:textSize="20dp"
+        android:id="@+id/date"
+        android:layout_below="@+id/inprice"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Input date"
+        android:id="@+id/indate"
+        android:layout_below="@+id/date"/>
+</RelativeLayout>

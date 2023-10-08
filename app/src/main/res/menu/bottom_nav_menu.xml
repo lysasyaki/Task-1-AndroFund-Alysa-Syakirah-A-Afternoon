@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/addNote"
+        android:icon="@drawable/baseline_note_add_24"
+        android:title="@string/title_add" />
+
+    <item
+        android:id="@+id/viewNote"
+        android:icon="@drawable/baseline_note_24"
+        android:title="@string/title_view" />
+
+</menu>
