@@ -5,64 +5,48 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.Toast
+import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.alysa.pemesanan.R
-import java.io.BufferedReader
-import java.io.File
-import java.io.FileReader
-import java.io.IOException
+import com.alysa.pemesanan.databinding.FragmentViewnoteBinding
+import com.alysa.pemesanan.ui.viewmodels.addNoteViewModel
 
 class viewNoteFragment : Fragment() {
 
-    private lateinit var intable: EditText
-    private lateinit var code: EditText
-    private lateinit var inprice: EditText
-    private lateinit var indate: EditText
+    private lateinit var viewmodels: addNoteViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewmodels = ViewModelProvider(requireActivity()).get(addNoteViewModel::class.java)
+    }
+
+    private var _binding: FragmentViewnoteBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val rootView = inflater.inflate(R.layout.fragment_viewnote, container, false)
+        _binding = FragmentViewnoteBinding.inflate(inflater, container, false)
+        val root: View = binding.root
 
-        intable = rootView.findViewById(R.id.inTable)
-        code = rootView.findViewById(R.id.code)
-        indate = rootView.findViewById(R.id.indate)
-        inprice = rootView.findViewById(R.id.inprice)
+        val inTable = root.findViewById<TextView>(R.id.inTable)
+        val code = root.findViewById<TextView>(R.id.code)
+        val inprice = root.findViewById<TextView>(R.id.inprice)
+        val indate = root.findViewById<TextView>(R.id.indate)
 
-        val fileName = intable.text.toString()
-            bacaDataUser(fileName)
+        inTable.text = "${viewmodels.inTable}"
+        code.text = "${viewmodels.code}"
+        inprice.text = "${viewmodels.inprice}"
+        indate.text = "${viewmodels.indate}"
 
-        return rootView
+        val textView: TextView = binding.textview
+        return root
     }
-
-    private fun bacaDataUser(fileName: String) {
-        val sdcard = requireContext().filesDir
-        val file = File(sdcard, fileName)
-        if (file.exists()) {
-            val text = StringBuilder()
-            try {
-                val br = BufferedReader(FileReader(file))
-                var line: String? = br.readLine()
-                while (line != null) {
-                    text.append(line)
-                    line = br.readLine()
-                }
-                br.close()
-            } catch (e: IOException) {
-                println("Error " + e.message)
-            }
-            val data = text.toString()
-            val dataUser = data.split(";")
-
-            intable.setText(dataUser[0])
-            code.setText(dataUser[1])
-            indate.setText(dataUser[2])
-            inprice.setText(dataUser[3])
-        } else {
-            Toast.makeText(requireContext(), "Data not found", Toast.LENGTH_SHORT).show()
-        }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

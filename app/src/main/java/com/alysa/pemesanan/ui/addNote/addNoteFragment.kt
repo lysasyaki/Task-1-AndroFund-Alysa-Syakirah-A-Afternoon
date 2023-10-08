@@ -2,14 +2,19 @@ package com.alysa.pemesanan.ui.addNote
 
 import android.app.DatePickerDialog
 import android.os.Bundle
+import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.alysa.pemesanan.databinding.FragmentAddnoteBinding
+import com.alysa.pemesanan.ui.viewmodels.addNoteViewModel
 import java.io.File
 import java.io.FileOutputStream
 import java.text.SimpleDateFormat
@@ -29,6 +34,12 @@ class addNoteFragment : Fragment() {
     private val calendar = Calendar.getInstance()
     private val dateFormatter = SimpleDateFormat("yyyy-MM-dd", Locale.US)
 
+    private lateinit var ViewModel: addNoteViewModel
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        ViewModel = ViewModelProvider(requireActivity()).get(addNoteViewModel::class.java)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -37,72 +48,51 @@ class addNoteFragment : Fragment() {
         _binding = FragmentAddnoteBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        intable = binding.inTable
-        code = binding.code
-        indate = binding.indate
-        inprice = binding.inprice
-        save = binding.save
+        val textView: TextView = binding.txtadd
+        val Tgl = binding.indate
+        val Save = binding.save
 
-        indate.setText(dateFormatter.format(calendar.time))
+        Save.setOnClickListener{
 
-        indate.setOnClickListener {
-            showDatePicker()
+            val inTable = binding.inTable.text.toString()
+            val code = binding.code.text.toString()
+            val inprice = binding.inprice.text.toString()
+            val indate = binding.indate.text.toString()
+
+            ViewModel.inTable = inTable
+            ViewModel.code = code
+            ViewModel.inprice = inprice
+            ViewModel.indate = indate
+
         }
 
-        save.setOnClickListener {
-            if (isValidation()) {
-                simpanFileData()
-            } else {
-                Toast.makeText(requireContext(), "Please fill all data", Toast.LENGTH_SHORT).show()
-            }
+
+        Tgl.setOnClickListener {
+            // Mendapatkan tanggal saat ini
+            val calendar = Calendar.getInstance()
+            val year = calendar.get(Calendar.YEAR)
+            val month = calendar.get(Calendar.MONTH)
+            val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+            // Membuat DatePickerDialog
+            val datePickerDialog = DatePickerDialog(
+                requireContext(),
+                DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
+                    // Mengatur tanggal yang dipilih pada TextView
+                    val selectedDate = "$dayOfMonth/${monthOfYear + 1}/$year"
+                    Tgl.text = Editable.Factory.getInstance().newEditable(selectedDate)
+                },
+                year, month, day
+            )
+
+            // Menampilkan DatePickerDialog
+            datePickerDialog.show()
         }
 
         return root
     }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    private fun isValidation(): Boolean {
-        return !intable.text.toString().isEmpty() &&
-                !code.text.toString().isEmpty() &&
-                !indate.text.toString().isEmpty() &&
-                !inprice.text.toString().isEmpty()
-    }
-
-    private fun simpanFileData() {
-        val isiFile = "${intable.text};${code.text};${indate.text};${inprice.text}"
-        val file = File(requireContext().filesDir, intable.text.toString())
-
-        var outputStream: FileOutputStream? = null
-        try {
-            file.createNewFile()
-            outputStream = FileOutputStream(file, false)
-            outputStream.write(isiFile.toByteArray())
-            outputStream.flush()
-            outputStream.close()
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-    }
-
-    private fun showDatePicker() {
-        val dateListener = DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
-            calendar.set(Calendar.YEAR, year)
-            calendar.set(Calendar.MONTH, month)
-            calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-            indate.setText(dateFormatter.format(calendar.time))
-        }
-
-        val datePickerDialog = DatePickerDialog(
-            requireContext(),
-            dateListener,
-            calendar.get(Calendar.YEAR),
-            calendar.get(Calendar.MONTH),
-            calendar.get(Calendar.DAY_OF_MONTH)
-        )
-        datePickerDialog.show()
     }
 }

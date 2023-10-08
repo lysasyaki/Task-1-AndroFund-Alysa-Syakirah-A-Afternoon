@@ -3,4 +3,5 @@
     <string name="title_add">Add Note</string>
     <string name="title_view">View Note</string>
     <string name="btn_simpan">Save</string>
+    <string name="btn_view">View Data</string>
 </resources>

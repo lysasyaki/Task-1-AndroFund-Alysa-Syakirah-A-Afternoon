@@ -28,7 +28,7 @@
 
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:hint="Input table"
         android:layout_below="@id/table"
         android:id="@+id/inTable"/>
@@ -44,10 +44,10 @@
 
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="140dp"
+        android:layout_height="50dp"
         android:layout_below="@id/menu"
         android:layout_marginTop="10dp"
-        android:background="@drawable/list"
+        android:hint="Input Order"
         android:id="@+id/code"/>
 
     <TextView
@@ -61,7 +61,7 @@
 
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:hint="Input price"
         android:id="@+id/inprice"
         android:layout_below="@+id/price"/>
@@ -77,8 +77,17 @@
 
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:hint="Input date"
         android:id="@+id/indate"
         android:layout_below="@+id/date"/>
+
+    <Button
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:text="@string/btn_view"
+        android:id="@+id/view"
+        android:layout_below="@+id/indate"/>
 </RelativeLayout>
